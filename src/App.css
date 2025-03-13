@@ -1,18 +1,10 @@
+/* src/App.css */
 .App {
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.urdu-text {
+  font-family: 'Noto Nastaliq Urdu', serif; /* Apply the Noto Nastaliq font */
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -24,15 +16,17 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.question-input {
+  width: 400px; /* Set a minimum width */
+  min-height: 50px; /* Set a minimum height */
+  padding: 10px; /* Add some padding */
+  font-size: 16px; /* Increase font size for the input to 16px */
+  margin: 20px 0; /* Add some margin for spacing */
+  resize: vertical; /* Allow vertical resizing */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.question-display {
+  font-size: 16px; /* Increase font size for displayed questions to 16px */
+  color: #ffffff; /* Keep the text color white for visibility */
+  margin: 5px 0; /* Add some margin for spacing between questions */
 }
