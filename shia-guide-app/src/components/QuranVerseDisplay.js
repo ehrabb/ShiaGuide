@@ -1,8 +1,7 @@
 // E:\ShiaGuide\shia-guide\src\components\QuranVerseDisplay.js
 
 import React, { useEffect, useState } from 'react';
-import { fetchQuranVerse } from '../api/api'; // Ensure this path is correct
-
+import { fetchQuranVerse } from '../api/api'; // This should work now
 const QuranVerseDisplay = ({ verseId }) => {
     const [verse, setVerse] = useState(null);
     const [loading, setLoading] = useState(true);
