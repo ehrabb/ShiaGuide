@@ -1,8 +1,8 @@
-// src/App.js
+// E:\ShiaGuide\shia-guide\src\App.js
 
 import React, { useState } from 'react';
-import QuranVerseDisplay from './components/QuranVerseDisplay';
-import HadithDisplay from './components/HadithDisplay';
+import QuranVerseDisplay from './components/QuranVerseDisplay'; // Ensure this path is correct
+import HadithDisplay from './components/HadithDisplay'; // Ensure this path is correct
 import './App.css'; // Ensure this line is present
 
 const App = () => {

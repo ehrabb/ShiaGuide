@@ -1,32 +1,16 @@
 /* src/App.css */
+
 .App {
   text-align: center;
-}
-.urdu-text {
-  font-family: 'Noto Nastaliq Urdu', serif; /* Apply the Noto Nastaliq font */
-}
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin: 20px;
 }
 
-.question-input {
-  width: 400px; /* Set a minimum width */
-  min-height: 50px; /* Set a minimum height */
-  padding: 10px; /* Add some padding */
-  font-size: 16px; /* Increase font size for the input to 16px */
-  margin: 20px 0; /* Add some margin for spacing */
-  resize: vertical; /* Allow vertical resizing */
+input {
+  padding: 10px;
+  margin: 10px;
+  width: 200px;
 }
 
-.question-display {
-  font-size: 16px; /* Increase font size for displayed questions to 16px */
-  color: #ffffff; /* Keep the text color white for visibility */
-  margin: 5px 0; /* Add some margin for spacing between questions */
+h2 {
+  margin-top: 20px;
 }
