@@ -1,43 +1,46 @@
-// src/api/api.js
+// src/App.js
+import React, { useState } from 'react';
+import SearchBar from './components/SearchBar';
+import QuranVerseDisplay from './components/QuranVerseDisplay';
+import HadithDisplay from './components/HadithDisplay';
+import Filter from './components/Filter'; // Import the Filter component
+import { fetchSearchResults } from './api';
 
-import axios from 'axios';
+const App = () => {
+    const [searchResults, setSearchResults] = useState([]);
+    const [selectedCategories, setSelectedCategories] = useState([]);
 
-// Create an Axios instance for API requests
-const apiClient = axios.create({
-    baseURL: 'https://api.example.com', // Replace with your actual API base URL
-    timeout: 40000,
-    headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-    },
-});
+    const handleSearch = async (query) => {
+        const results = await fetchSearchResults(query);
+        setSearchResults(results);
+    };
 
-// Function to fetch a specific Quran verse by its ID
-export const fetchQuranVerse = async (verseId) => {
-    try {
-        const response = await apiClient.get(`/quran/verse/${verseId}`); // Adjust the endpoint as needed
-        if (response.status !== 200) {
-            throw new Error('Failed to fetch data');
+    const handleFilterChange = (category, isChecked) => {
+        if (isChecked) {
+            setSelectedCategories((prev) => [...prev, category]);
+        } else {
+            setSelectedCategories((prev) => prev.filter((cat) => cat !== category));
         }
-        return response.data; // Assuming the API returns the verse data directly
-    } catch (error) {
-        console.error('Error fetching Quran verse:', error);
-        throw error; // Rethrow the error for handling in the component
-    }
+    };
+
+    // Example categories (you can modify these based on your data)
+    const categories = ['Quran', 'Hadith', 'History', 'Fiqh'];
+
+    // Filter search results based on selected categories
+    const filteredResults = searchResults.filter((result) => {
+        // Assuming each result has a category property
+        return selectedCategories.length === 0 || selectedCategories.includes(result.category);
+    });
+
+    return (
+        <div>
+            <h1>ShiaGuide</h1>
+            <SearchBar onSearch={handleSearch} />
+            <Filter categories={categories} onFilterChange={handleFilterChange} /> {/* Ensure this is used */}
+            <QuranVerseDisplay results={filteredResults} />
+            <HadithDisplay results={filteredResults} />
+        </div>
+    );
 };
 
-// Function to fetch Hadiths by book ID
-export const fetchHadiths = async (bookId) => {
-    try {
-        const response = await apiClient.get(`/hadith/book/${bookId}`); // Adjust the endpoint as needed
-        if (response.status !== 200) {
-            throw new Error('Failed to fetch data');
-        }
-        return response.data; // Assuming the API returns the Hadith data directly
-    } catch (error) {
-        console.error('Error fetching Hadiths:', error);
-        throw error; // Rethrow the error for handling in the component
-    }
-};
-
-export default apiClient;
+export default App;
