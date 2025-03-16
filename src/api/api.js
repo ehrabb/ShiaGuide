@@ -1,47 +1,43 @@
-// src/App.js
+// src/api/api.js
 
-import React, { useState } from 'react';
-import QuranVerseDisplay from './components/QuranVerseDisplay';
-import HadithDisplay from './components/HadithDisplay';
-import './App.css';
+import axios from 'axios';
 
-const App = () => {
-    const [verseId, setVerseId] = useState('');
-    const [bookId, setBookId] = useState('');
+// Create an Axios instance for API requests
+const apiClient = axios.create({
+    baseURL: 'https://api.example.com', // Replace with your actual API base URL
+    timeout: 40000,
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+    },
+});
 
-    const handleVerseIdChange = (e) => {
-        setVerseId(e.target.value);
-    };
-
-    const handleBookIdChange = (e) => {
-        setBookId(e.target.value);
-    };
-
-    return (
-        <div className="App">
-            <h1>Islamic Texts Finder</h1>
-            <div>
-                <h2>Find a Quran Verse</h2>
-                <input
-                    type="text"
-                    value={verseId}
-                    onChange={handleVerseIdChange}
-                    placeholder="Enter verse ID"
-                />
-                {verseId && <QuranVerseDisplay verseId={verseId} />}
-            </div>
-            <div>
-                <h2>Find Hadiths</h2>
-                <input
-                    type="text"
-                    value={bookId}
-                    onChange={handleBookIdChange}
-                    placeholder="Enter book ID"
-                />
-                {bookId && <HadithDisplay bookId={bookId} />}
-            </div>
-        </div>
-    );
+// Function to fetch a specific Quran verse by its ID
+export const fetchQuranVerse = async (verseId) => {
+    try {
+        const response = await apiClient.get(`/quran/verse/${verseId}`); // Adjust the endpoint as needed
+        if (response.status !== 200) {
+            throw new Error('Failed to fetch data');
+        }
+        return response.data; // Assuming the API returns the verse data directly
+    } catch (error) {
+        console.error('Error fetching Quran verse:', error);
+        throw error; // Rethrow the error for handling in the component
+    }
 };
 
-export default App;
+// Function to fetch Hadiths by book ID
+export const fetchHadiths = async (bookId) => {
+    try {
+        const response = await apiClient.get(`/hadith/book/${bookId}`); // Adjust the endpoint as needed
+        if (response.status !== 200) {
+            throw new Error('Failed to fetch data');
+        }
+        return response.data; // Assuming the API returns the Hadith data directly
+    } catch (error) {
+        console.error('Error fetching Hadiths:', error);
+        throw error; // Rethrow the error for handling in the component
+    }
+};
+
+export default apiClient;
