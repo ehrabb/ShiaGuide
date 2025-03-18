@@ -1,45 +1,13 @@
-// E:\ShiaGuide\shia-guide\src\components\QuranVerseDisplay.js
+// src/components/QuranVerseDisplay.js
+import React from 'react';
+import './components.css'; // Import the CSS file
 
-import React, { useEffect, useState } from 'react';
-import { fetchQuranVerse } from '../api/api'; // This should work now
-const QuranVerseDisplay = ({ verseId }) => {
-    const [verse, setVerse] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        const getVerse = async () => {
-            try {
-                const data = await fetchQuranVerse(verseId);
-                setVerse(data);
-            } catch (error) {
-                setError("Failed to fetch verse.");
-                console.error("Failed to fetch verse:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        if (verseId) {
-            getVerse();
-        }
-    }, [verseId]);
-
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>{error}</p>;
-
+const QuranVerseDisplay = ({ verse }) => {
     return (
-        <div>
-            <h2>Quran Verse</h2>
-            {verse ? (
-                <div>
-                    <p><strong>Arabic:</strong> {verse.text}</p>
-                    <p><strong>English Translation:</strong> {verse.englishTranslation}</p>
-                    <p><strong>Urdu Translation:</strong> {verse.urduTranslation}</p>
-                </div>
-            ) : (
-                <p>No verse found.</p>
-            )}
+        <div className="quran-verse-display">
+            <h3>Quran Verse</h3>
+            <p>{verse.text}</p>
+            <p><strong>- Surah {verse.surah}, Ayah {verse.ayah}</strong></p>
         </div>
     );
 };
